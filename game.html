@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>МАГИЧЕСКИЙ КВАДРАТ (да, он черный)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Jazz LET', fantasy;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .content {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .content h1, .content h2 {
+            margin-bottom: 20px;
+        }
+        .content ol {
+            text-align: left;
+            margin: 20px auto;
+            padding-left: 20px;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .table-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 50%; /* Уменьшить ширину таблицы в два раза */
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        td {
+            border: 1px solid #000;
+            padding: 5px; /* Уменьшить отступы в два раза */
+            text-align: center;
+            font-size: 0.6em; /* Уменьшить шрифт в два раза */
+        }
+        .cell {
+            font-size: 0.75em; /* Уменьшить шрифт в два раза */
+            font-family: monospace;
+        }
+        .btn-primary {
+            margin-top: 20px;
+        }
+        .num {
+            font-size: 8.5px; /* Уменьшить шрифт в два раза */
+            width: 15px; /* Уменьшить ширину в два раза */
+            color: #000;
+            font-family: verdana;
+            text-align: right;
+        }
+        .symbols {
+            font-size: 20px; /* Уменьшить шрифт в два раза */
+            background: #000;
+            color: #f1f1f1;
+            font-family: wingdings;
+            text-align: center;
+        }
+        .viewsymbol {
+            font-size: 50px; /* Уменьшить шрифт в два раза */
+            background: #000;
+            width: 75px; /* Уменьшить ширину в два раза */
+            color: #f1f1f1;
+            font-family: wingdings;
+            height: 75px; /* Уменьшить высоту в два раза */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">♦</a>
+            <div class="collapse navbar-collapse show" id="navbarBasic">
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">тут я</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pet.html" tabindex="-1" aria-disabled="true">Мой питомец</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="achives.html" tabindex="-1" aria-disabled="true">Мои достижения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="game.html" tabindex="-1" aria-disabled="true">магия</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>Чёрная магия</h1>
+        <ol>
+            <li>Загадай двузначное число ♦</li>
+            <li>Отними от него сумму его цифр ♦</li>
+            <li>Запомни значок, соответствующий получившемуся числу ♦</li>
+            <li>Нажми на квадрат ♦</li>
+        </ol>
+    </div>
+    <div align="center">
+        <table cellspacing="0" width="50%" border="0" class="">
+            <tbody>
+                <tr>
+                    <td valign="top">
+                        <center>
+                            <table style="cursor: hand" onclick="show()" cellspacing="5" align="center" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td class="viewsymbol" id="sh" align="middle">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="sym" valign="top" height="150"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script language="javascript" type="text/javascript">
+        let ax = 0;
+        const alphaArray = ["a", "n", "b", "d", "f", "h", "{", "i", "l", "v", "x", "z", "I", "J", "M", "N", "o", "O", "R", "S", "T", "U", "m", "6", "^", "u", "_", "[", "]"];
+
+        function viewtable() {
+            ax = Math.round(Math.random() * 26);
+            let table = "<table align=\"center\" border=\"0\" cellspacing=\"5\" cellpadding=\"1\"><tr>";
+            let j = 1;
+            for (let i = 99; i >= 0; i--) {
+                let a = Math.round(Math.random() * 26);
+                if (i % 9 === 0 && i < 89) a = ax;
+                table += `<td class='num'>${i}</td><td class='symbols'>${alphaArray[a]}</td>`;
+                if (j % 10 === 0) table += "</tr><tr>";
+                j++;
+            }
+            table += "</tr></table>";
+            document.getElementById('sym').innerHTML = table;
+            document.getElementById('sh').innerHTML = "";
+        }
+
+        function show() {
+            document.getElementById('sh').innerHTML = alphaArray[ax];
+            document.getElementById('sym').innerHTML = "<center>Этот символ? :) <a href=\"javascript:viewtable()\"><b>повторить</b></a></center>";
+        }
+
+        window.onload = viewtable;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-mr5D4yRYgD0fZ6zRVCBZvXgSTpyWsPRQ2lWFlP4G2pkDdF4I++G7FWSTXj8p+4X2" crossorigin="anonymous"></script>
+</body>
+</html>
